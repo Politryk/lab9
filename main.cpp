@@ -6,7 +6,7 @@
 
 #define SIGN "signature"
 //---------------------------------------------------------------------------
-     // ВОЛЕЮ ХАОСА ЭТОМУ КОДУ ДОНА НЕ ОДНОЗНАЧНОСТЬ!!!
+     // Р’РћР›Р•Р® РҐРђРћРЎРђ Р­РўРћРњРЈ РљРћР”РЈ Р”РћРќРђ РќР• РћР”РќРћР—РќРђР§РќРћРЎРўР¬!!!
 bool CopyFile(char* filename, FILE* input_file);
 bool OpenFile(FILE* bin_file);
 
@@ -14,17 +14,17 @@ bool OpenFile(FILE* bin_file);
 int main(int argc, char* argv[])
 {
    if(argc!=2){
-    printf("not read!!!");                //Проверка на введенные данные
+    printf("not read!!!");                //РџСЂРѕРІРµСЂРєР° РЅР° РІРІРµРґРµРЅРЅС‹Рµ РґР°РЅРЅС‹Рµ
     getch();
     return 0;
    }
 
    FILE* input_file;
-   input_file = fopen(argv[1],"rt");     //открытие файла для чтения
+   input_file = fopen(argv[1],"rt");     //РѕС‚РєСЂС‹С‚РёРµ С„Р°Р№Р»Р° РґР»СЏ С‡С‚РµРЅРёСЏ
 
 
    if(input_file == NULL){
-   printf("file not found!!!");             //Проверка существует ли файл
+   printf("file not found!!!");             //РџСЂРѕРІРµСЂРєР° СЃСѓС‰РµСЃС‚РІСѓРµС‚ Р»Рё С„Р°Р№Р»
    getch();
    return 0;
    }
@@ -41,18 +41,18 @@ int main(int argc, char* argv[])
    }
 
    FILE* bin_file;
-   bin_file = fopen(file_name,"rb");     //открытие бинарного файла
+   bin_file = fopen(file_name,"rb");     //РѕС‚РєСЂС‹С‚РёРµ Р±РёРЅР°СЂРЅРѕРіРѕ С„Р°Р№Р»Р°
 
    delete file_name;
 
 
    if(bin_file == NULL){
-   fclose(bin_file);                     //Проверка открыт ли файл
+   fclose(bin_file);                     //РџСЂРѕРІРµСЂРєР° РѕС‚РєСЂС‹С‚ Р»Рё С„Р°Р№Р»
    printf("failed!!!");
    getch();
    return 0;
    }
-                                          //Конец проверки
+                                          //РљРѕРЅРµС† РїСЂРѕРІРµСЂРєРё
 
    bool error_list = OpenFile(bin_file);
 
@@ -66,75 +66,75 @@ int main(int argc, char* argv[])
 }
 
 
-                                                //Функция копирования файла
+                                                //Р¤СѓРЅРєС†РёСЏ РєРѕРїРёСЂРѕРІР°РЅРёСЏ С„Р°Р№Р»Р°
 bool CopyFile(char* file_name, FILE* input_file){
 
-                                               //Формирование пути нового файла
+                                               //Р¤РѕСЂРјРёСЂРѕРІР°РЅРёРµ РїСѓС‚Рё РЅРѕРІРѕРіРѕ С„Р°Р№Р»Р°
 char* pch = strtok(file_name,".");
    strcat(file_name,".bin");
 
-                                                //создание выходного файла
+                                                //СЃРѕР·РґР°РЅРёРµ РІС‹С…РѕРґРЅРѕРіРѕ С„Р°Р№Р»Р°
    FILE* output_file;
    output_file = fopen(file_name,"wb");
 
-                                                //Првоерка создан ли файл
+                                                //РџСЂРѕРІРµСЂРєР° СЃРѕР·РґР°РЅ Р»Рё С„Р°Р№Р»
    if(output_file == NULL){
    fclose(input_file);
    printf("file not criet");
    return false;
    }
 
-                                                    //Запись сигнатуры
+                                                    //Р—Р°РїРёСЃСЊ СЃРёРіРЅР°С‚СѓСЂС‹
    fwrite(SIGN, sizeof(char),10,output_file);
 
    char str[256];
 
    while(1){
-   if(fgets(str,256,input_file)==NULL)              //получить строчку из txt
+   if(fgets(str,256,input_file)==NULL)              //РїРѕР»СѓС‡РёС‚СЊ СЃС‚СЂРѕС‡РєСѓ РёР· txt
    break;
-   int len_str = strlen(str);                      //Узнаем длину строки
+   int len_str = strlen(str);                      //РЈР·РЅР°РµРј РґР»РёРЅСѓ СЃС‚СЂРѕРєРё
    len_str++;
-   fwrite(&len_str,sizeof(int),1,output_file);      //записать длину строки
-   fwrite(str, sizeof(char),len_str,output_file);    //записать строку в  bin
+   fwrite(&len_str,sizeof(int),1,output_file);      //Р·Р°РїРёСЃР°С‚СЊ РґР»РёРЅСѓ СЃС‚СЂРѕРєРё
+   fwrite(str, sizeof(char),len_str,output_file);    //Р·Р°РїРёСЃР°С‚СЊ СЃС‚СЂРѕРєСѓ РІ  bin
    }
 
-   fclose(input_file);                            //pзавершение работы с файлами
+   fclose(input_file);                            //pР·Р°РІРµСЂС€РµРЅРёРµ СЂР°Р±РѕС‚С‹ СЃ С„Р°Р№Р»Р°РјРё
    fclose(output_file);
 
    return true;
 }
 
 
-                                                 //Функция открытия файла
+                                                 //Р¤СѓРЅРєС†РёСЏ РѕС‚РєСЂС‹С‚РёСЏ С„Р°Р№Р»Р°
 bool OpenFile(FILE* bin_file){
 
-                                                 //Считывание сигнатуры
+                                                 //РЎС‡РёС‚С‹РІР°РЅРёРµ СЃРёРіРЅР°С‚СѓСЂС‹
    char sign_this[10];
    fread(sign_this, sizeof(char), 10, bin_file);
 
-                                                  //Проверка сигнатуры файла
+                                                  //РџСЂРѕРІРµСЂРєР° СЃРёРіРЅР°С‚СѓСЂС‹ С„Р°Р№Р»Р°
    if(strcmp(sign_this,SIGN)!=0){
    fclose(bin_file);
    printf("not my file");
    return false;
    }
-                                                   //Конец проверки
+                                                   //РљРѕРЅРµС† РїСЂРѕРІРµСЂРєРё
 
 
-                                                 //Считывание бинарного файла
+                                                 //РЎС‡РёС‚С‹РІР°РЅРёРµ Р±РёРЅР°СЂРЅРѕРіРѕ С„Р°Р№Р»Р°
    int n;
-   char str_new[4];                          // 4 т.к. 4 байта в типе int
+   char str_new[4];                          // 4 С‚.Рє. 4 Р±Р°Р№С‚Р° РІ С‚РёРїРµ int
    while(1){
 
    fread(&n, sizeof(int), 1, bin_file);
 
    char *scan = new char[n];
-   fread(scan,n,1,bin_file);                    //получаем строку
+   fread(scan,n,1,bin_file);                    //РїРѕР»СѓС‡Р°РµРј СЃС‚СЂРѕРєСѓ
 
    if(int feof(bin_file)!=0)
    break;
 
-   printf("%s",scan);                          //выводим на экран
+   printf("%s",scan);                          //РІС‹РІРѕРґРёРј РЅР° СЌРєСЂР°РЅ
    delete scan;
    }
 
